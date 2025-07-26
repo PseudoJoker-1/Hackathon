@@ -197,3 +197,9 @@ class BusinessSerializer(serializers.ModelSerializer):
     class Meta:
         model = Business
         fields = ['id', 'attached_file', 'deadline']
+
+
+class SubmissionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Submission
+        fields = ['id', 'student', 'subject', 'file', 'submit_date']
