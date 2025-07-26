@@ -70,14 +70,7 @@ class CourseSerializer(serializers.ModelSerializer):
         model = Course
         fields = ['id', 'name','description', 'category','instructor']
         read_only_fields = ['id']
-    
-    
-class ScheduleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Schedule
-        fields = ['id', 'course', 'date']
-        read_only_fields = ['id']
-    
+        
     
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
@@ -156,3 +149,30 @@ class VerifyCodeSerializer(serializers.Serializer):
             password=validated_data['password']
         )
         return user
+class RoomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rooms
+        fields = ['id', 'number']
+
+class ReportSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Report
+        fields = ['id', 'room', 'report_type', 'description']
+
+class SubjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subject
+        fields = ['id', 'name']
+
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ['id', 'name']
+
+class ScheduleSerializer(serializers.ModelSerializer):
+    subjects = SubjectSerializer(many=True)
+    group = GroupSerializer()
+
+    class Meta:
+        model = Schedule
+        fields = ['id', 'group', 'subjects', 'day', 'start_time', 'end_time']

@@ -8,9 +8,15 @@ from rest_framework import filters
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.decorators import api_view
 from rest_framework.response    import Response
-import requests
 from rest_framework import status
 from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404, redirect
+from .models import Rooms, Report
+from .forms import ReportForm
+from rest_framework import viewsets
+from .serializers import RoomSerializer, ReportSerializer
+
+
 # Create your views here.
 def index(request):
     return render(request,'static/main.html')
@@ -78,14 +84,6 @@ class CourseVS(ModelViewSet):
     filterset_fields = ['category', 'instructor']
     search_fields    = ['name', 'description']
 
-class ScheduleVS(ModelViewSet): 
-    permission_classes = [IsAuthenticated]
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
-    filterset_fields = ['course']
-    search_fields    = ['course__name']
-    ordering_fields  = ['date']
-    queryset = Schedule.objects.all()
-    serializer_class = ScheduleSerializer
 
 class EventVS(ModelViewSet):
     permission_classes = [IsAuthenticated]
@@ -154,3 +152,12 @@ def verify_and_register(request):
     ser.is_valid(raise_exception=True)
     user = ser.save()
     return Response({"id": user.id, "username": user.username}, status=status.HTTP_201_CREATED)
+
+
+class RoomViewSet(viewsets.ModelViewSet):
+    queryset = Rooms.objects.all()
+    serializer_class = RoomSerializer
+
+class ReportViewSet(viewsets.ModelViewSet):
+    queryset = Report.objects.all()
+    serializer_class = ReportSerializer

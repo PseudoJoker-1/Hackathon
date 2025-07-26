@@ -147,15 +147,6 @@ class Course(models.Model):
     def __str__(self):
         return self.name
     
-class Schedule(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='schedules')
-    date = models.DateField()
-    time = models.TimeField()
-    location = models.CharField(max_length=255, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
-
-    def __str__(self):
-        return f"{self.course.name} - {self.date} at {self.time}"
 
 class Event(models.Model):
     CATEGORY_CHOICES = [
@@ -195,3 +186,44 @@ class ScoreTransaction(models.Model):
     class Meta:
         ordering = ['-created_at']
 
+class Rooms(models.Model):
+    number = models.IntegerField(unique=True)
+
+    def __str__(self):
+        return str(self.number)
+
+class Report(models.Model):
+    REPORT_TYPES = [
+        ('computer', 'Computer Broken'),
+        ('light', 'Light Issue'),
+        ('other', 'Other'),
+    ]
+    room = models.ForeignKey(Rooms, related_name='reports', on_delete=models.CASCADE)
+    report_type = models.CharField(max_length=50, choices=REPORT_TYPES)
+    description = models.TextField()
+
+
+class Group(models.Model):
+    name = models.CharField(max_length=50, null = True, blank=True)  # например: "SE-2201"
+
+    def __str__(self):
+        return self.name
+
+class Subject(models.Model):
+    name = models.CharField(max_length=100, null = True, blank=True)  # например: "Math", "Physics"
+
+    def __str__(self):
+        return self.name
+class Schedule(models.Model):
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, )
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, )
+    day = models.CharField(max_length=10, choices=[
+    ('Mon', 'Monday'),
+    ('Tue', 'Tuesday'),
+    ('Wed', 'Wednesday'),
+    ('Thu', 'Thursday'),
+    ('Fri', 'Friday'),
+    ('Sat', 'Saturday'),
+    ])
+    start_time = models.TimeField(default='08:00')
+    end_time = models.TimeField(default='09:30')
