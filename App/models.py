@@ -227,3 +227,25 @@ class Schedule(models.Model):
     ])
     start_time = models.TimeField(default='08:00')
     end_time = models.TimeField(default='09:30')
+
+
+class Math(models.Model):
+    attached_file = models.FileField(upload_to='math_doc/',blank=True,null=True)
+    deadline = models.DateField()
+
+
+
+class Physics(models.Model):
+    attached_file = models.FileField(upload_to='physics_doc/',blank=True,null=True)
+    deadline = models.DateField()
+
+
+class Phylosophy(models.Model):
+    attached_file = models.FileField(upload_to='phylosophy_doc/',blank=True,null=True)
+    deadline = models.DateField()
+
+
+class Business(models.Model):
+    attached_file = models.FileField(upload_to='business_doc/',blank=True,null=True)
+    deadline = models.DateField()
+

@@ -7,7 +7,10 @@ from .views import *
 router = DefaultRouter()
 router.register(r'rooms', RoomViewSet)
 router.register(r'reports', ReportViewSet)
-
+router.register(r'math', MathVS)
+router.register(r'phylosophy', PhylosopyVS)
+router.register(r'business', BusinessVS)
+router.register(r'physics', PhysicsVS)
 router.register(r'documents',DocumentVS)
 router.register(r'documentsHistory',DocumentHistoryVS)
 router.register(r'approvalSteps',ApprovalStepVS)

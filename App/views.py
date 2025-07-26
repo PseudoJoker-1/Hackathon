@@ -161,3 +161,19 @@ class RoomViewSet(viewsets.ModelViewSet):
 class ReportViewSet(viewsets.ModelViewSet):
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
+
+class MathVS(viewsets.ModelViewSet):
+    queryset = Math.objects.all()
+    serializer_class = MathSerializer
+
+class PhysicsVS(viewsets.ModelViewSet):
+    queryset= Physics.objects.all()
+    serializer_class = PhysicsSerializer
+
+class PhylosopyVS(viewsets.ModelViewSet):
+    queryset = Phylosophy.objects.all()
+    serializers_class = PhylosophySerializer
+
+class BusinessVS(viewsets.ModelViewSet):
+    queryset = Business.objects.all()
+    serializers_class = BusinessSerializer

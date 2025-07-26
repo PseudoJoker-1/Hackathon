@@ -176,3 +176,24 @@ class ScheduleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Schedule
         fields = ['id', 'group', 'subjects', 'day', 'start_time', 'end_time']
+
+
+class MathSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Math
+        fields = ['id', 'attached_file', 'deadline']
+
+class PhysicsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Physics
+        fields = ['id', 'attached_file', 'deadline']
+
+class PhylosophySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Phylosophy
+        fields = ['id', 'attached_file', 'deadline']
+
+class BusinessSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Business
+        fields = ['id', 'attached_file', 'deadline']
