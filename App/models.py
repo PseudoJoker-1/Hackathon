@@ -24,6 +24,7 @@ class User(AbstractUser):
     social_score = models.IntegerField(default=0, blank=True, null=True)
     is_admin = models.BooleanField(default=False)
     vacation_days_left = models.IntegerField(default=2, blank=True, null=True)
+    points = models.IntegerField(default = 0)
     
 class Sendcode(models.Model):
     email = models.EmailField()
@@ -201,6 +202,12 @@ class Report(models.Model):
     room = models.ForeignKey(Rooms, related_name='reports', on_delete=models.CASCADE)
     report_type = models.CharField(max_length=50, choices=REPORT_TYPES)
     description = models.TextField()
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.user.points = (self.user.points or 0) +1 
+            self.user.save()
+        super.save(*args, **kwargs)
 
 
 class Group(models.Model):
