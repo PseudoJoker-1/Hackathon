@@ -177,3 +177,7 @@ class PhylosopyVS(viewsets.ModelViewSet):
 class BusinessVS(viewsets.ModelViewSet):
     queryset = Business.objects.all()
     serializers_class = BusinessSerializer
+
+class SubmissionVS(viewsets.ModelViewSet):
+    queryset = Submission.objects.all()
+    serializer_class = SubmissionSerializer

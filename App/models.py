@@ -257,7 +257,7 @@ class Business(models.Model):
     deadline = models.DateField()
 
 
-class Submission(models.Modell):
+class Submission(models.Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE)
     subject = models.CharField(max_length =50, choices = [
         ('math', 'Math'),
@@ -269,6 +269,4 @@ class Submission(models.Modell):
     file = models.FileField(upload_to = 'submissions/')
     submit_date = models.DateTimeField(auto_now_add = True)
 
-    def clean(self):
-        if self.student.role != 'worker':
-            raise ValueError('only students can submit homework')
+    
